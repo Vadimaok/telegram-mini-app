@@ -1,0 +1,11 @@
+{
+  "name": "Orbit Messenger",
+  "short_name": "Orbit",
+  "description": "Личные сообщения и звонки",
+  "start_url": "/telegram-mini-app/",
+  "scope": "/telegram-mini-app/",
+  "display": "standalone",
+  "background_color": "#090a10",
+  "theme_color": "#090a10",
+  "orientation": "any"
+}
