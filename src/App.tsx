@@ -2,9 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import {
-  Aperture, ArrowDownLeft, ArrowUpRight, Bell, Check, CheckCheck, ChevronDown,
-  CircleHelp, LogOut, Menu, MessageCircle, Mic, MicOff, MoreHorizontal, Phone,
-  PhoneCall, Plus, Search, Send, Settings, ShieldCheck, Smartphone, Sparkles,
+  Aperture, ArrowDownLeft, ArrowUpRight, Bell, CheckCheck,
+  CircleHelp, LogOut, MessageCircle, Mic, MicOff, MoreHorizontal, Phone,
+  PhoneCall, Plus, Search, Send, Settings, ShieldCheck, Sparkles,
   Video, VideoOff, X
 } from 'lucide-react'
 import { isSupabaseConfigured, supabase } from './lib/supabase'
@@ -75,7 +75,7 @@ export default function App() {
       const ids = memberships.map((m: any) => m.chat_id)
       const { data: rows } = await supabase!.from('messages').select('id,chat_id,sender_id,content,created_at').in('chat_id', ids).order('created_at', { ascending: true }).limit(500)
       if (rows) setMessages(rows as Message[])
-      setChats(memberships.map((m: any) => ({ id:m.chat_id, title:m.chats?.title || 'Личный чат', subtitle:'Личный чат', avatar:(m.chats?.title || 'О').slice(0,1).toUpperCase(), color:'violet', online:false, unread:0, last:rows?.filter((r:any)=>r.chat_id===m.chat_id).at(-1)?.content || 'Начните общение', time:'' })))
+      setChats(memberships.map((m: any) => ({ id:m.chat_id, title:m.chats?.title || 'Личный чат', subtitle:'Личный чат', avatar:(m.chats?.title || 'О').slice(0,1).toUpperCase(), color:'violet', online:false, unread:0, last:rows?.filter((r:any)=>r.chat_id===m.chat_id).slice(-1)[0]?.content || 'Начните общение', time:'' })))
     }
     void loadChats()
   }, [session])
